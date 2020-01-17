@@ -8,15 +8,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.tea.nemoto.musicalc.R
 import com.tea.nemoto.musicalc.databinding.FragmentResultareaBinding
+import com.tea.nemoto.musicalc.viewmodel.ResultAreaFragmentViewModel
 
-class ResultAreaFragment : Fragment() {
+public class ResultAreaFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Fragmentとlayoutを紐付ける
         super.onCreateView(inflater, container, savedInstanceState)
 
+        // FragmentのViewModel生成と、DataBindingを行う
         val binding = DataBindingUtil.inflate<FragmentResultareaBinding>(inflater, R.layout.fragment_resultarea, container, false)
+        binding.viewModel = ResultAreaFragmentViewModel()
 
         return binding.root
     }

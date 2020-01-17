@@ -7,18 +7,33 @@
         <variable name="view_model" type="com.tea.nemoto.musicalc.viewmodel.MainActivityViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".view.MainActivity">
 
-        <!-- Fragmentを持たせるLinearLayoutを用意-->
-        <!-- memo：id≒C#(xaml)のname的なもの？ コード側から参照するための定義 -->
-        <LinearLayout
-            android:id="@+id/container"
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg06"
+            />
+            <!-- TODO：背景画像をVMから動的に設定したい -->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Fragmentを持たせるLinearLayoutを用意-->
+            <!-- memo：id≒C#(xaml)のname的なもの？ コード側から参照するための定義 -->
+            <LinearLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </layout>

@@ -1,11 +1,10 @@
 package com.tea.nemoto.musicalc.viewmodel
 
+import android.graphics.drawable.Drawable
 import androidx.lifecycle.ViewModel
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
-class MainActivityViewModel : ViewModel(){
-
-    // 背景画像のプロパティをsetを公開
+public class MainActivityViewModel : ViewModel(){
 
 }

@@ -7,7 +7,7 @@ import com.tea.nemoto.musicalc.R
 import com.tea.nemoto.musicalc.viewmodel.MainActivityViewModel
 import com.tea.nemoto.musicalc.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+public class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
