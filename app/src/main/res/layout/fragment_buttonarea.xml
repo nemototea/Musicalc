@@ -1,202 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- 本Viewと紐づくVMを記載 -->
     <data>
         <variable name="view_model" type="com.tea.nemoto.musicalc.viewmodel.ButtonAreaFragmentViewModel" />
+        <variable name="numberdottype" type="com.tea.nemoto.musicalc.common.NumberDotType" />
     </data>
 
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:stretchColumns="*">
+        android:stretchColumns="*"
+        style="?android:attr/buttonBarStyle">
 
         <TableRow
             android:id="@+id/row1"
             android:layout_weight="1"
             android:gravity="center">
+
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/buttonRec"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="Rec"
-                android:textSize="25sp"/>
+                android:text="@string/rec"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.recTapped()}"/>
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/buttonAc"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="AC"
-                android:textSize="25sp"/>
+                android:text="@string/ac"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.clearAllTapped()}"/>
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/buttonC"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="C"
-                android:textSize="25sp"/>
+                android:text="@string/c"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.clearTapped()}"/>
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/buttonDiv"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="÷"
-                android:textSize="25sp"/>
+                android:text="@string/div"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.divTapped()}"/>
         </TableRow>
         <TableRow
             android:id="@+id/row2"
             android:layout_weight="1"
             android:gravity="center">
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button7"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="7"
-                android:textSize="25sp"/>
+                android:text="@string/seven"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.numberTapped(numberdottype.Seven)}"/>
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button8"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="8"
-                android:textSize="25sp"/>
+                android:text="@string/eight"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.numberTapped(numberdottype.Eight)}"/>
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button9"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="9"
-                android:textSize="25sp"/>
+                android:text="@string/nine"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.numberTapped(numberdottype.Nine)}"/>
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/buttonMul"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="×"
-                android:textSize="25sp"/>
+                android:text="@string/mul"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.mulTapped()}"/>
         </TableRow>
         <TableRow
             android:id="@+id/row3"
             android:layout_weight="1"
             android:gravity="center">
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button4"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="4"
-                android:textSize="25sp"/>
+                android:text="@string/four"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.numberTapped(numberdottype.Four)}"/>
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button5"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="5"
-                android:textSize="25sp"/>
+                android:text="@string/five"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.numberTapped(numberdottype.Five)}"/>
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button6"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="6"
-                android:textSize="25sp"/>
+                android:text="@string/six"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.numberTapped(numberdottype.Six)}"/>
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/buttonSub"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="-"
-                android:textSize="25sp"/>
+                android:text="@string/sub"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.subTapped()}"/>
         </TableRow>
         <TableRow
             android:id="@+id/row4"
             android:layout_weight="1"
             android:gravity="center">
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button1"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="1"
-                android:textSize="25sp"/>
+                android:text="@string/one"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.numberTapped(numberdottype.One)}"/>
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button2"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="2"
-                android:textSize="25sp"/>
+                android:text="@string/two"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.numberTapped(numberdottype.Two)}"/>
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button3"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="3"
-                android:textSize="25sp"/>
+                android:text="@string/three"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.numberTapped(numberdottype.Three)}"/>
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/buttonAdd"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="+"
-                android:textSize="25sp"/>
+                android:text="@string/add"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.addTapped()}"/>
         </TableRow>
         <TableRow
             android:id="@+id/row5"
             android:layout_weight="1"
             android:gravity="center">
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button0"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="0"
-                android:textSize="25sp"/>
+                android:text="@string/zero"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.numberTapped(numberdottype.Zero)}"/>
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button00"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="00"
-                android:textSize="25sp"/>
+                android:text="@string/zero2"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.numberTapped(numberdottype.Zero2)}"/>
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/buttonDot"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="."
+                android:text="@string/dot"
                 android:textSize="25sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:onClick="@{() -> view_model.numberTapped(numberdottype.Dot)}"/>
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/buttonEqual"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="#08000000"
-                android:text="="
-                android:textSize="25sp"/>
+                android:text="@string/equal"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.equalTapped()}"/>
         </TableRow>
     </TableLayout>
 </layout>

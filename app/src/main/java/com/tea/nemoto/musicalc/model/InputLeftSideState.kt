@@ -2,6 +2,7 @@ package com.tea.nemoto.musicalc.model
 
 import com.tea.nemoto.musicalc.common.CalcState
 import com.tea.nemoto.musicalc.common.IState
+import com.tea.nemoto.musicalc.common.NumberDotType
 import com.tea.nemoto.musicalc.common.Operator
 
 // ※インスタンス複数必要なく、IStateを継承するため、シングルトンクラスとする
@@ -17,7 +18,7 @@ public object InputLeftSideState : IState {
         return CalcState.InputLeftSide
     }
 
-    override fun inputNumber(calculation: Calculation, key: Int) {
+    override fun inputNumber(calculation: Calculation, key: NumberDotType) {
         // 入力中の値に数値を追加する
         calculation.addNum(key)
     }

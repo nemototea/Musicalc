@@ -5,6 +5,7 @@
     <!-- 本Viewと紐づくVMを記載 -->
     <data>
         <variable name="view_model" type="com.tea.nemoto.musicalc.viewmodel.ResultAreaFragmentViewModel" />
+        <variable name="calc_data" type="com.tea.nemoto.musicalc.common.CalcData" />
     </data>
 
     <LinearLayout
@@ -27,7 +28,7 @@
             android:id="@+id/calcResultText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{view_model.result}"
+            android:text="@={calc_data.resultData}"
             android:textAlignment="viewEnd"
             android:textSize="60sp" />
 

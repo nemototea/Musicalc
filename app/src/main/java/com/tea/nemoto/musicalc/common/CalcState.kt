@@ -4,5 +4,6 @@ enum class CalcState {
     InputLeftSide,
     InputOperator,
     InputRightSide,
-    FinishCalc
+    FinishCalc,
+    Error
 }

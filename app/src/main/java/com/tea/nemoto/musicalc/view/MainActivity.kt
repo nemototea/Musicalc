@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import com.tea.nemoto.musicalc.R
 import com.tea.nemoto.musicalc.viewmodel.MainActivityViewModel
 import com.tea.nemoto.musicalc.databinding.ActivityMainBinding
+import com.tea.nemoto.musicalc.model.Sound
 
 public class MainActivity : AppCompatActivity() {
 
@@ -33,5 +34,9 @@ public class MainActivity : AppCompatActivity() {
                 .add(R.id.container, buttonAreaFragment)
                 .commit()
         }
+
+        // サウンドのロードを行う。
+        // 後処理はViewModelのライフサイクルが終了するタイミングで行う
+        Sound.setUp(this.applicationContext)
     }
 }

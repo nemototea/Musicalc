@@ -2,6 +2,7 @@ package com.tea.nemoto.musicalc.model
 
 import com.tea.nemoto.musicalc.common.CalcState
 import com.tea.nemoto.musicalc.common.IState
+import com.tea.nemoto.musicalc.common.NumberDotType
 import com.tea.nemoto.musicalc.common.Operator
 
 // 右辺入力中の状態での動作を定義
@@ -11,7 +12,7 @@ public object InputRightSideState : IState {
         return CalcState.InputRightSide
     }
 
-    override fun inputNumber(calculation: Calculation, key: Int) {
+    override fun inputNumber(calculation: Calculation, key: NumberDotType) {
         // 入力中の値に数値を追加する
         calculation.addNum(key)
     }

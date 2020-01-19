@@ -2,6 +2,7 @@ package com.tea.nemoto.musicalc.model
 
 import com.tea.nemoto.musicalc.common.CalcState
 import com.tea.nemoto.musicalc.common.IState
+import com.tea.nemoto.musicalc.common.NumberDotType
 import com.tea.nemoto.musicalc.common.Operator
 
 // 演算子入力中の状態での動作を定義
@@ -11,7 +12,7 @@ public object InputOperatorState : IState {
         return CalcState.InputOperator
     }
 
-    override fun inputNumber(calculation: Calculation, key: Int) {
+    override fun inputNumber(calculation: Calculation, key: NumberDotType) {
         // 入力内容をクリアし、右辺の入力に遷移する
         calculation.clear()
         calculation.addNum(key)

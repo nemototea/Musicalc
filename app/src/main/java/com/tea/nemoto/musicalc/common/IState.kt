@@ -6,7 +6,7 @@ import com.tea.nemoto.musicalc.model.Calculation
 // ※状態に応じてボタン押下時の挙動を入れ替えたいため
 public interface IState {
     fun getStateValue():CalcState
-    fun inputNumber(calculation: Calculation, key: Int)
+    fun inputNumber(calculation: Calculation, key: NumberDotType)
     fun inputOperator(calculation: Calculation, key: Operator)
     fun inputClear(calculation: Calculation)
     fun inputClearAll(calculation: Calculation)

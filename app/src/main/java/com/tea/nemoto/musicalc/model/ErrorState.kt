@@ -5,11 +5,11 @@ import com.tea.nemoto.musicalc.common.IState
 import com.tea.nemoto.musicalc.common.NumberDotType
 import com.tea.nemoto.musicalc.common.Operator
 
-// 計算終了後の状態での動作を定義
-public object FinishCalcState : IState {
+// エラーを表示した状態での動作を定義
+public object ErrorState : IState {
 
     override fun getStateValue(): CalcState {
-        return CalcState.FinishCalc
+        return CalcState.Error
     }
 
     override fun inputNumber(calculation: Calculation, key: NumberDotType) {
@@ -20,15 +20,11 @@ public object FinishCalcState : IState {
     }
 
     override fun inputOperator(calculation: Calculation, key: Operator) {
-        // 計算結果の値を左辺として確定し、演算子を設定する
-        calculation.setLeftValue()
-        calculation.setOperator(key)
-        calculation.updateState(InputOperatorState)
+        // 何もしない
     }
 
     override fun inputClear(calculation: Calculation) {
-        // 計算終了時はclearAllする
-        // ※Windows標準電卓のCEと同じ動作
+        // エラー時はclearAllする
         calculation.clearAll()
         calculation.updateState(InputLeftSideState)
     }
@@ -39,12 +35,11 @@ public object FinishCalcState : IState {
     }
 
     override fun inputEqual(calculation: Calculation) {
-        // 計算結果が算出された状態で「＝」を押下した場合は定数計算を行う
-        calculation.constantCalculate()
+        // 何もしない
     }
 
     override fun inputRec(calculation: Calculation) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        // 何もしない
     }
 
 }

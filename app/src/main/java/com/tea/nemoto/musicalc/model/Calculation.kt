@@ -1,10 +1,16 @@
 package com.tea.nemoto.musicalc.model
 
+import com.tea.nemoto.musicalc.common.CalcData
 import com.tea.nemoto.musicalc.common.IState
+import com.tea.nemoto.musicalc.common.NumberDotType
 import com.tea.nemoto.musicalc.common.Operator
 import kotlin.Exception
 
 public object Calculation {
+    // 最大表示桁数
+    private const val MAX_DIGIT: Int = 16
+
+    // 計算で保持する内部値
     private var mLeftValue: Double = 0.0
     private var mRightValue: Double = 0.0
     private var mOperator: Operator = Operator.None
@@ -12,7 +18,7 @@ public object Calculation {
 
     // region ViewModelから利用する処理
     // 状態によりstateのインスタンスを差し替える
-    public fun inputNumber(key: Int){
+    public fun inputNumber(key: NumberDotType){
         mState.inputNumber(this, key)
     }
 
@@ -38,35 +44,65 @@ public object Calculation {
     // endregion
 
     // region State側からコールする共通処理
-    public fun addNum(key: Int){
-        // TODO:画面の表示を取得＆設定できるようにしたい
-        // 入力値上限チェック
-        if(true){
-            // 上限値以上の場合は追加せずリターン
-            return
-        }
+    // 表示中の値に入力値を加える
+    // ※Error表示後はErrorStateから初期化を行うため、数値以外の文字列については考慮不要
+    public fun addNum(key: NumberDotType){
+        try {
+            val calcResult: String = CalcData.resultData.get()!!
+            var setValue: String = calcResult
 
-        if(true && true){
-            // 入力値が「.」かつ、「.」が1つもない場合
-            // 末尾に.をAppendする
+            if (calcResult.length >= MAX_DIGIT) {
+                // 入力上限値以上の場合はAddしない
+                return
+            }
+
+            if (calcResult == "0") {
+                // 表示値が「0」の場合
+                if (key == NumberDotType.Zero || key == NumberDotType.Zero2) {
+                    // 「0・00」が入力された場合はAddしない
+                    return
+                }
+                if (key == NumberDotType.Dot) {
+                    // 「.」が入力された場合は0の後にAddする
+                    setValue += key.text
+                } else {
+                    // その他の場合は、入力値で上書きする
+                    setValue = key.text
+                }
+            } else if (key == NumberDotType.Dot && calcResult.contains(".")) {
+                // 既に「.」が含まれている場合はAddしない
+                return
+            } else {
+                setValue += key.text
+            }
+            CalcData.resultData.set(setValue)
         }
-        else if(true){
-            // 数字入力時、「0」のみだった場合、
-            // 0を削除して、入力値を新しく入れる。
-        }
-        else{
-            // 入力値をAppendする
+        catch (ex: Exception){
+            CalcData.resultData.set("ERROR")
+            updateState(ErrorState)
         }
     }
 
     // 画面に表示されている値を左辺にセット
     public fun setLeftValue(){
-        mLeftValue = 0.0 // TODO：画面側にアクセス
+        try {
+            mLeftValue = CalcData.resultData.get()!!.toDouble()
+        }
+        catch (ex: Exception){
+            CalcData.resultData.set("ERROR")
+            updateState(ErrorState)
+        }
     }
 
     // 画面に表示されている値を右辺にセット
     public fun setRightValue(){
-        mRightValue = 0.0 // TODO：画面側にアクセス
+        try {
+            mRightValue = CalcData.resultData.get()!!.toDouble()
+        }
+        catch (ex: Exception){
+            CalcData.resultData.set("ERROR")
+            updateState(ErrorState)
+        }
     }
 
     // 押された演算子をセット
@@ -81,36 +117,46 @@ public object Calculation {
         }
     }
 
+    // 表示されている値を0にする(クラス変数の右辺左辺は変更しない)
     public fun clear(){
-        // 表示されている値を0にする
-        // TODO：画面側にアクセス
+        CalcData.resultData.set("0")
     }
 
+    // 表示されている値を0にし、演算子、右辺左辺を初期化する
     public fun clearAll(){
-        // 表示されている値を0にする
-        // TODO：画面側にアクセス
-        // 演算子、右辺左辺を初期化する
+        CalcData.resultData.set("0")
         this.initialize()
     }
 
+    // 計算処理
     public fun calculate(){
-        var result: Double = fourArithmeticOperations(mLeftValue, mRightValue, mOperator)
-        // TODO：画面側に計算結果を通知
+        try {
+            fourArithmeticOperations(mLeftValue, mRightValue, mOperator)
+        }
+        catch (ex: Exception){
+            CalcData.resultData.set("ERROR")
+            updateState(ErrorState)
+        }
     }
 
     // 定数計算を行う
     // 右辺はそのままで、左辺の入力値は画面から取得する
     public fun constantCalculate(){
-        var result: Double = fourArithmeticOperations(mLeftValue, mRightValue, mOperator)
-        // TODO：画面側にアクセス(表示値を取得、結果を通知)
-
+        try {
+            val left: Double = CalcData.resultData.get()!!.toDouble()
+            fourArithmeticOperations(left, mRightValue, mOperator)
+        }
+        catch (ex: Exception){
+            CalcData.resultData.set("ERROR")
+            updateState(ErrorState)
+        }
     }
     // endregion
 
     // region privateメソッド
     private fun initialize(){
         try {
-            // TODO：画面初期化も行いたい
+            CalcData.resultData.set("0")
             mOperator = Operator.None
             mLeftValue = 0.0
             mRightValue = 0.0
@@ -118,45 +164,38 @@ public object Calculation {
         }
         catch (ex: Exception){
             // 初期化でエラーが起きた際は握りつぶす
-            // TODO:画面にERROR表示
         }
     }
 
-    private fun fourArithmeticOperations(left: Double, right: Double, op: Operator): Double{
+    // 四則演算
+    private fun fourArithmeticOperations(left: Double, right: Double, op: Operator) {
         var result: Double = 0.0
-
-        try{
-            when(op){
-                Operator.Plus -> {
-                    result = left + right
-                }
-                Operator.Minus -> {
-                    result = left - right
-                }
-                Operator.Times ->{
-                    result = left * right
-                }
-                Operator.Divide -> {
-                    if(right == 0.0){
-                        // "0"を返却すると計算結果として誤りとなるため、
-                        // TODO:画面にエラーを表示する
-                        result = 0.0
-                    }
-                    else{
-                        result = left / right
-                    }
-                }
-                Operator.None -> {
-                    // 処理なし
+        when (op) {
+            Operator.Plus -> {
+                result = left + right
+            }
+            Operator.Minus -> {
+                result = left - right
+            }
+            Operator.Times -> {
+                result = left * right
+            }
+            Operator.Divide -> {
+                if (right == 0.0) {
+                    // "0"を返却すると計算結果として誤りとなるため
+                    // 0除算は計算できない旨を表示する
+                    CalcData.resultData.set("0で割ることはできません")
+                    updateState(ErrorState)
+                    return
+                } else {
+                    result = left / right
                 }
             }
+            Operator.None -> {
+                // 処理なし
+            }
         }
-        catch (ex: Exception){
-            // 計算でエラーになった際は初期化する
-            this.initialize()
-        }
-
-        return result
+        CalcData.resultData.set(result.toString())
     }
     // endregion
 }
