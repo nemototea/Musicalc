@@ -15,8 +15,8 @@
     <string name="rec">REC</string>
     <string name="c">C</string>
     <string name="ac">AC</string>
-    <string name="add">＋</string>
-    <string name="sub">－</string>
+    <string name="add">+</string>
+    <string name="sub">-</string>
     <string name="mul">×</string>
     <string name="div">÷</string>
     <string name="equal">＝</string>

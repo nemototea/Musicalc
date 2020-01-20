@@ -23,6 +23,8 @@ public object FinishCalcState : IState {
         // 計算結果の値を左辺として確定し、演算子を設定する
         calculation.setLeftValue()
         calculation.setOperator(key)
+        calculation.setLeftProcess()
+        calculation.setOperatorProcess(key)
         calculation.updateState(InputOperatorState)
     }
 
@@ -35,6 +37,7 @@ public object FinishCalcState : IState {
 
     override fun inputClearAll(calculation: Calculation) {
         calculation.clearAll()
+        calculation.clearCalcProcess()
         calculation.updateState(InputLeftSideState)
     }
 

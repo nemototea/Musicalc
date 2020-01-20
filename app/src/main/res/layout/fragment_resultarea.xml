@@ -31,7 +31,13 @@
             android:text="@={calc_data.resultData}"
             android:textAlignment="viewEnd"
             android:textSize="60sp" />
-
+        <TextView
+            android:id="@+id/calcProcessText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={calc_data.calcProcessData}"
+            android:textAlignment="viewEnd"
+            android:textSize="25sp" />
         <Space
             android:layout_width="match_parent"
             android:layout_height="50dp"

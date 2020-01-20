@@ -4,6 +4,7 @@ import com.tea.nemoto.musicalc.common.CalcData
 import com.tea.nemoto.musicalc.common.IState
 import com.tea.nemoto.musicalc.common.NumberDotType
 import com.tea.nemoto.musicalc.common.Operator
+import java.math.BigDecimal
 import kotlin.Exception
 
 public object Calculation {
@@ -79,6 +80,90 @@ public object Calculation {
         }
         catch (ex: Exception){
             CalcData.resultData.set("ERROR")
+            updateState(ErrorState)
+        }
+    }
+
+    // 計算過程Textに左辺を追加
+    public fun setLeftProcess(){
+        try {
+            // 小数点以下の不要な0は削除
+            if(mLeftValue.toString().endsWith(".0")){
+                CalcData.calcProcessData.set(mLeftValue.toInt().toString())
+            }
+            else{
+                CalcData.calcProcessData.set(mLeftValue.toString())
+            }
+        }
+        catch (ex: Exception){
+            CalcData.calcProcessData.set("ERROR")
+            updateState(ErrorState)
+        }
+    }
+
+    // 計算過程Textに演算子を追加
+    public fun setOperatorProcess(op: Operator){
+        try {
+            val calcProcess = CalcData.calcProcessData.get()!!
+            var writeText = calcProcess
+
+            // 左辺や右辺があれば演算子を追加してよい
+            if(calcProcess != "") {
+                // 末尾が演算子の場合は、入力した演算子に置き換える
+                if (calcProcess.endsWith(Operator.Plus.text) ||
+                    calcProcess.endsWith(Operator.Minus.text) ||
+                    calcProcess.endsWith(Operator.Times.text) ||
+                    calcProcess.endsWith(Operator.Divide.text)
+                ) {
+                    writeText = writeText.substring(0, writeText.length - 1)
+                }
+                writeText += op.text
+                CalcData.calcProcessData.set(writeText)
+            }
+        }
+        catch (ex: Exception){
+            CalcData.calcProcessData.set("ERROR")
+            updateState(ErrorState)
+        }
+    }
+
+    // 計算過程Textに右辺を追加
+    public fun setRightProcess(){
+        try {
+            val calcProcess = CalcData.calcProcessData.get()!!
+            var writeText = calcProcess
+
+            // 末尾が演算子の場合のみ、右辺を追加する
+            if(calcProcess != "") {
+                if (calcProcess.endsWith(Operator.Plus.text) ||
+                    calcProcess.endsWith(Operator.Minus.text) ||
+                    calcProcess.endsWith(Operator.Times.text) ||
+                    calcProcess.endsWith(Operator.Divide.text)
+                ) {
+                    // 右辺入力値の小数点以下の不要な0は削除する
+                    if(mRightValue.toString().endsWith(".0")){
+                        writeText += mRightValue.toInt().toString()
+                    }
+                    else{
+                        writeText += mRightValue
+                    }
+                    CalcData.calcProcessData.set(writeText)
+                }
+            }
+        }
+        catch (ex: Exception){
+            CalcData.calcProcessData.set("ERROR")
+            updateState(ErrorState)
+        }
+    }
+
+    // 計算過程Textをクリア
+    public fun clearCalcProcess(){
+        try {
+            CalcData.calcProcessData.set("")
+        }
+        catch (ex: Exception){
+            CalcData.calcProcessData.set("ERROR")
             updateState(ErrorState)
         }
     }
@@ -169,33 +254,53 @@ public object Calculation {
 
     // 四則演算
     private fun fourArithmeticOperations(left: Double, right: Double, op: Operator) {
-        var result: Double = 0.0
+        // Doubleで計算すると、小数点以下の計算に丸め誤差が生じるため
+        // BigDecimalに変換してから計算する
+        // ex)123.56 - 0.6 = 122.960000...1 等となる(122.96が正解)
+        var result = BigDecimal(0)
+        val bdLeft = BigDecimal.valueOf(left)
+        val bdRight = BigDecimal.valueOf(right)
+
         when (op) {
             Operator.Plus -> {
-                result = left + right
+                result = bdLeft + bdRight
             }
             Operator.Minus -> {
-                result = left - right
+                result = bdLeft - bdRight
             }
             Operator.Times -> {
-                result = left * right
+                result = bdLeft * bdRight
             }
             Operator.Divide -> {
-                if (right == 0.0) {
-                    // "0"を返却すると計算結果として誤りとなるため
-                    // 0除算は計算できない旨を表示する
+                // 除算時、右辺が0かどうかを判定
+                if (bdRight.compareTo(BigDecimal.ZERO) == 0) {
+                    // "0"を返却すると計算結果としては誤りとなる。
+                    // 0除算は計算できない旨を明示する
                     CalcData.resultData.set("0で割ることはできません")
                     updateState(ErrorState)
                     return
                 } else {
-                    result = left / right
+                    result = bdLeft / bdRight
                 }
             }
             Operator.None -> {
                 // 処理なし
             }
         }
-        CalcData.resultData.set(result.toString())
+
+        // 小数点以下の不要な0を削除する
+        // TODO：関数に切り出す||処理が不格好
+        var strResult = result.toString()
+        if (strResult.contains(".")) {
+            while (strResult.endsWith("0")) {
+                strResult = strResult.substring(0, strResult.length - 1)
+            }
+
+            if(strResult.contains(".")){
+                strResult = strResult.substring(0, strResult.length - 1)
+            }
+        }
+        CalcData.resultData.set(strResult)
     }
     // endregion
 }

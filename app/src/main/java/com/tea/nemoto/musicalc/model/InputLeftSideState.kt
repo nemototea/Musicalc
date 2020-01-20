@@ -1,9 +1,6 @@
 package com.tea.nemoto.musicalc.model
 
-import com.tea.nemoto.musicalc.common.CalcState
-import com.tea.nemoto.musicalc.common.IState
-import com.tea.nemoto.musicalc.common.NumberDotType
-import com.tea.nemoto.musicalc.common.Operator
+import com.tea.nemoto.musicalc.common.*
 
 // ※インスタンス複数必要なく、IStateを継承するため、シングルトンクラスとする
 // ※シングルトン使用時の注意
@@ -27,6 +24,8 @@ public object InputLeftSideState : IState {
         // 左辺を確定・演算子をセットし、状態遷移する
         calculation.setLeftValue()
         calculation.setOperator(key)
+        calculation.setLeftProcess()
+        calculation.setOperatorProcess(key)
         calculation.updateState(InputOperatorState)
     }
 
@@ -36,6 +35,7 @@ public object InputLeftSideState : IState {
 
     override fun inputClearAll(calculation: Calculation) {
         calculation.clearAll()
+        calculation.clearCalcProcess()
     }
 
     override fun inputEqual(calculation: Calculation) {

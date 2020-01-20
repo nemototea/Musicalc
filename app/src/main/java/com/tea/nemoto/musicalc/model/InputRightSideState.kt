@@ -20,10 +20,12 @@ public object InputRightSideState : IState {
     override fun inputOperator(calculation: Calculation, key: Operator) {
         // 現在の入力値を右辺として確定し、計算を行う
         calculation.setRightValue()
+        calculation.setRightProcess()
         calculation.calculate()
         // 計算結果を左辺として確定し演算子をセット
         calculation.setLeftValue()
         calculation.setOperator(key)
+        calculation.setOperatorProcess(key)
         // 演算子入力状態に遷移
         calculation.updateState(InputOperatorState)
     }
@@ -36,6 +38,7 @@ public object InputRightSideState : IState {
     override fun inputClearAll(calculation: Calculation) {
         // 式を全てクリアし、左辺入力状態に遷移する
         calculation.clearAll()
+        calculation.clearCalcProcess()
         calculation.updateState(InputLeftSideState)
     }
 
@@ -43,6 +46,7 @@ public object InputRightSideState : IState {
         // 現在の入力値を右辺として確定し、計算をする
         calculation.setRightValue()
         calculation.calculate()
+        calculation.clearCalcProcess()
         // 計算終了状態に遷移する
         calculation.updateState(FinishCalcState)
     }

@@ -11,7 +11,7 @@ import com.tea.nemoto.musicalc.common.SoundType
 // TODO：音声のロード時間が長いため、起動直後は音が再生されない場合がある
 object Sound {
     private lateinit var soundPool: SoundPool
-    private var soundType: SoundType = SoundType.Guitar
+    private var soundType: SoundType = SoundType.Bass
     var bass0 = 0
     var bass00 = 0
     var bass1 = 0
@@ -162,202 +162,235 @@ object Sound {
     }
 
     fun playPlus(){
-        soundPool.play(drumPlus, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(drumPlus, 0.6f, 0.6f, 0, 0, 1.0f)
     }
 
     fun playSub(){
-        soundPool.play(drumSub, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(drumSub, 0.6f, 0.6f, 0, 0, 1.0f)
     }
 
     fun playMul(){
-        soundPool.play(drumMul, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(drumMul, 0.6f, 0.6f, 0, 0, 1.0f)
     }
 
     fun playDiv(){
-        soundPool.play(drumDiv, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(drumDiv, 0.6f, 0.6f, 0, 0, 1.0f)
     }
 
     fun playEqual(){
-        soundPool.play(drumEqual, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(drumEqual, 0.6f, 0.6f, 0, 0, 1.0f)
     }
 
     private fun playDot(){
-        soundPool.play(drumDot, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(drumDot, 0.6f, 0.6f, 0, 0, 1.0f)
     }
 
     private fun play0(){
         var id = 0
+        var vol: Float = 0.6f
         when (this.soundType) {
             SoundType.Guitar -> {
                 id = guitar0
+                vol = 0.8f
             }
             SoundType.Bass -> {
                 id = bass0
+                vol = 1.0f
             }
             SoundType.Piano -> {
                 id = piano0
             }
         }
-        soundPool.play(id, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(id, vol, vol, 0, 0, 1.0f)
     }
 
     private fun play00(){
         var id = 0
+        var vol: Float = 0.6f
         when (this.soundType) {
             SoundType.Guitar -> {
                 id = guitar00
+                vol = 0.8f
             }
             SoundType.Bass -> {
                 id = bass00
+                vol = 1.0f
             }
             SoundType.Piano -> {
                 id = piano00
             }
         }
-        soundPool.play(id, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(id, vol, vol, 0, 0, 1.0f)
     }
 
     private fun play1(){
         var id = 0
+        var vol: Float = 0.6f
         when (this.soundType) {
             SoundType.Guitar -> {
                 id = guitar1
+                vol = 0.8f
             }
             SoundType.Bass -> {
                 id = bass1
+                vol = 1.0f
             }
             SoundType.Piano -> {
                 id = piano1
             }
         }
-        soundPool.play(id, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(id, vol, vol, 0, 0, 1.0f)
     }
 
     private fun play2(){
         var id = 0
+        var vol: Float = 0.6f
         when (this.soundType) {
             SoundType.Guitar -> {
                 id = guitar2
+                vol = 0.8f
             }
             SoundType.Bass -> {
                 id = bass2
+                vol = 1.0f
             }
             SoundType.Piano -> {
                 id = piano2
             }
         }
-        soundPool.play(id, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(id, vol, vol, 0, 0, 1.0f)
     }
 
     private fun play3(){
         var id = 0
+        var vol: Float = 0.6f
         when (this.soundType) {
             SoundType.Guitar -> {
                 id = guitar3
+                vol = 0.8f
             }
             SoundType.Bass -> {
                 id = bass3
+                vol = 1.0f
             }
             SoundType.Piano -> {
                 id = piano3
             }
         }
-        soundPool.play(id, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(id, vol, vol, 0, 0, 1.0f)
     }
 
     private fun play4(){
         var id = 0
+        var vol: Float = 0.6f
         when (this.soundType) {
             SoundType.Guitar -> {
                 id = guitar4
+                vol = 0.8f
             }
             SoundType.Bass -> {
                 id = bass4
+                vol = 1.0f
             }
             SoundType.Piano -> {
                 id = piano4
             }
         }
-        soundPool.play(id, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(id, vol, vol, 0, 0, 1.0f)
     }
 
     private fun play5(){
         var id = 0
+        var vol: Float = 0.6f
         when (this.soundType) {
             SoundType.Guitar -> {
                 id = guitar5
+                vol = 0.8f
             }
             SoundType.Bass -> {
                 id = bass5
+                vol = 1.0f
             }
             SoundType.Piano -> {
                 id = piano5
             }
         }
-        soundPool.play(id, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(id, vol, vol, 0, 0, 1.0f)
     }
 
     private fun play6(){
         var id = 0
+        var vol: Float = 0.6f
         when (this.soundType) {
             SoundType.Guitar -> {
                 id = guitar6
+                vol = 0.8f
             }
             SoundType.Bass -> {
                 id = bass6
+                vol = 1.0f
             }
             SoundType.Piano -> {
                 id = piano6
             }
         }
-        soundPool.play(id, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(id, vol, vol, 0, 0, 1.0f)
     }
 
     private fun play7(){
         var id = 0
+        var vol: Float = 0.6f
         when (this.soundType) {
             SoundType.Guitar -> {
                 id = guitar7
+                vol = 0.8f
             }
             SoundType.Bass -> {
                 id = bass7
+                vol = 1.0f
             }
             SoundType.Piano -> {
                 id = piano7
             }
         }
-        soundPool.play(id, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(id, vol, vol, 0, 0, 1.0f)
     }
 
     private fun play8(){
         var id = 0
+        var vol: Float = 0.6f
         when (this.soundType) {
             SoundType.Guitar -> {
                 id = guitar8
+                vol = 0.8f
             }
             SoundType.Bass -> {
                 id = bass8
+                vol = 1.0f
             }
             SoundType.Piano -> {
                 id = piano8
             }
         }
-        soundPool.play(id, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(id, vol, vol, 0, 0, 1.0f)
     }
 
     private fun play9(){
         var id = 0
+        var vol: Float = 0.6f
         when (this.soundType) {
             SoundType.Guitar -> {
                 id = guitar9
+                vol = 0.8f
             }
             SoundType.Bass -> {
                 id = bass9
+                vol = 1.0f
             }
             SoundType.Piano -> {
                 id = piano9
             }
         }
-        soundPool.play(id, 1.0f, 1.0f, 0, 0, 1.0f)
+        soundPool.play(id, vol, vol, 0, 0, 1.0f)
     }
 }
