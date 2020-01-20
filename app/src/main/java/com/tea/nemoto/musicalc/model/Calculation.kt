@@ -127,36 +127,6 @@ public object Calculation {
         }
     }
 
-    // 計算過程Textに右辺を追加
-    public fun setRightProcess(){
-        try {
-            val calcProcess = CalcData.calcProcessData.get()!!
-            var writeText = calcProcess
-
-            // 末尾が演算子の場合のみ、右辺を追加する
-            if(calcProcess != "") {
-                if (calcProcess.endsWith(Operator.Plus.text) ||
-                    calcProcess.endsWith(Operator.Minus.text) ||
-                    calcProcess.endsWith(Operator.Times.text) ||
-                    calcProcess.endsWith(Operator.Divide.text)
-                ) {
-                    // 右辺入力値の小数点以下の不要な0は削除する
-                    if(mRightValue.toString().endsWith(".0")){
-                        writeText += mRightValue.toInt().toString()
-                    }
-                    else{
-                        writeText += mRightValue
-                    }
-                    CalcData.calcProcessData.set(writeText)
-                }
-            }
-        }
-        catch (ex: Exception){
-            CalcData.calcProcessData.set("ERROR")
-            updateState(ErrorState)
-        }
-    }
-
     // 計算過程Textをクリア
     public fun clearCalcProcess(){
         try {

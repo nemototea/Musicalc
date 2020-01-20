@@ -20,11 +20,12 @@ public object InputRightSideState : IState {
     override fun inputOperator(calculation: Calculation, key: Operator) {
         // 現在の入力値を右辺として確定し、計算を行う
         calculation.setRightValue()
-        calculation.setRightProcess()
         calculation.calculate()
+        calculation.clearCalcProcess()
         // 計算結果を左辺として確定し演算子をセット
         calculation.setLeftValue()
         calculation.setOperator(key)
+        calculation.setLeftProcess()
         calculation.setOperatorProcess(key)
         // 演算子入力状態に遷移
         calculation.updateState(InputOperatorState)
