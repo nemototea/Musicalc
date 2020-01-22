@@ -20,4 +20,7 @@
     <string name="mul">×</string>
     <string name="div">÷</string>
     <string name="equal">＝</string>
+    <string name="piano">Piano</string>
+    <string name="guitar">Guitar</string>
+    <string name="bass">Bass</string>
 </resources>

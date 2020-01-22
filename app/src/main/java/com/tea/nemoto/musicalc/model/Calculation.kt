@@ -107,7 +107,7 @@ public object Calculation {
             val calcProcess = CalcData.calcProcessData.get()!!
             var writeText = calcProcess
 
-            // 左辺や右辺があれば演算子を追加してよい
+            // 左辺があれば演算子を追加してよい
             if(calcProcess != "") {
                 // 末尾が演算子の場合は、入力した演算子に置き換える
                 if (calcProcess.endsWith(Operator.Plus.text) ||
@@ -224,22 +224,23 @@ public object Calculation {
 
     // 四則演算
     private fun fourArithmeticOperations(left: Double, right: Double, op: Operator) {
-        // Doubleで計算すると、小数点以下の計算に丸め誤差が生じるため
+        // Doubleでは小数点以下の計算に丸め誤差が生じるため
         // BigDecimalに変換してから計算する
         // ex)123.56 - 0.6 = 122.960000...1 等となる(122.96が正解)
         var result = BigDecimal(0)
         val bdLeft = BigDecimal.valueOf(left)
         val bdRight = BigDecimal.valueOf(right)
 
+        // 演算子ではなくBigDecimal.add()などを使用しないと誤差が生じる
         when (op) {
             Operator.Plus -> {
-                result = bdLeft + bdRight
+                result = bdLeft.add(bdRight)
             }
             Operator.Minus -> {
-                result = bdLeft - bdRight
+                result = bdLeft.subtract(bdRight)
             }
             Operator.Times -> {
-                result = bdLeft * bdRight
+                result = bdLeft.multiply(bdRight)
             }
             Operator.Divide -> {
                 // 除算時、右辺が0かどうかを判定
@@ -250,7 +251,8 @@ public object Calculation {
                     updateState(ErrorState)
                     return
                 } else {
-                    result = bdLeft / bdRight
+                    // 割り切れない場合は例外が発生するため、小数点以下桁数と四捨五入を指定
+                    result = bdLeft.divide(bdRight, 10, BigDecimal.ROUND_HALF_UP)
                 }
             }
             Operator.None -> {
@@ -259,17 +261,16 @@ public object Calculation {
         }
 
         // 小数点以下の不要な0を削除する
-        // TODO：関数に切り出す||処理が不格好
-        var strResult = result.toString()
-        if (strResult.contains(".")) {
-            while (strResult.endsWith("0")) {
-                strResult = strResult.substring(0, strResult.length - 1)
-            }
-
-            if(strResult.contains(".")){
-                strResult = strResult.substring(0, strResult.length - 1)
-            }
-        }
+        var strResult = result.stripTrailingZeros().toString()
+        // stripTrailingZeros()利用のため以下処理不要
+        //if (strResult.contains(".")) {
+        //    while (strResult.endsWith("0")) {
+        //        strResult = strResult.substring(0, strResult.length - 1)
+        //    }
+        //    if(strResult.endsWith(".")){
+        //        strResult = strResult.substring(0, strResult.length - 1)
+        //    }
+        //}
         CalcData.resultData.set(strResult)
     }
     // endregion

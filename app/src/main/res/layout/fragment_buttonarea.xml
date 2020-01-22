@@ -19,17 +19,12 @@
             android:id="@+id/row1"
             android:layout_weight="1"
             android:gravity="center">
-
-            <Button
-                style="?android:attr/buttonBarButtonStyle"
-                android:id="@+id/buttonRec"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:background="#08000000"
-                android:text="@string/rec"
-                android:textSize="25sp"
-                android:onClick="@{() -> view_model.recTapped()}"/>
+            <com.nightonke.boommenu.BoomMenuButton
+                android:id="@+id/bmb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                />
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/buttonAc"

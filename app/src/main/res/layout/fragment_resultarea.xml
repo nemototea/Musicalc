@@ -23,14 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text=""/>
-
-        <TextView
-            android:id="@+id/calcResultText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@={calc_data.resultData}"
-            android:textAlignment="viewEnd"
-            android:textSize="60sp" />
         <TextView
             android:id="@+id/calcProcessText"
             android:layout_width="match_parent"
@@ -38,6 +30,13 @@
             android:text="@={calc_data.calcProcessData}"
             android:textAlignment="viewEnd"
             android:textSize="25sp" />
+        <TextView
+            android:id="@+id/calcResultText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={calc_data.resultData}"
+            android:textAlignment="viewEnd"
+            android:textSize="60sp" />
         <Space
             android:layout_width="match_parent"
             android:layout_height="50dp"
