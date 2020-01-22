@@ -23,4 +23,6 @@
     <string name="piano">Piano</string>
     <string name="guitar">Guitar</string>
     <string name="bass">Bass</string>
+    <string name="stop">Stop</string>
+    <string name="play">Play</string>
 </resources>

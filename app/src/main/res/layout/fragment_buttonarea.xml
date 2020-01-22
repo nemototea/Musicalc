@@ -6,6 +6,7 @@
     <!-- 本Viewと紐づくVMを記載 -->
     <data>
         <variable name="view_model" type="com.tea.nemoto.musicalc.viewmodel.ButtonAreaFragmentViewModel" />
+        <variable name="sound" type="com.tea.nemoto.musicalc.model.Sound" />
         <variable name="numberdottype" type="com.tea.nemoto.musicalc.common.NumberDotType" />
     </data>
 
@@ -14,17 +15,34 @@
         android:layout_height="fill_parent"
         android:stretchColumns="*"
         style="?android:attr/buttonBarStyle">
-
+        <TableRow
+            android:id="@+id/row0"
+            android:gravity="center">
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/buttonInst"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="#08000000"
+                android:text="@={sound.instName}"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.instTapped()}"/>
+        </TableRow>
         <TableRow
             android:id="@+id/row1"
             android:layout_weight="1"
             android:gravity="center">
-            <com.nightonke.boommenu.BoomMenuButton
-                android:id="@+id/bmb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                />
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/buttonPlayStop"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="#08000000"
+                android:text="@={sound.playStopButtonName}"
+                android:textSize="25sp"
+                android:onClick="@{() -> view_model.playStopTapped()}"/>
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/buttonAc"

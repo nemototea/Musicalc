@@ -3,6 +3,7 @@ package com.tea.nemoto.musicalc.model
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.SoundPool
+import androidx.databinding.ObservableField
 import com.tea.nemoto.musicalc.R
 import com.tea.nemoto.musicalc.common.NumberDotType
 import com.tea.nemoto.musicalc.common.SoundType
@@ -10,8 +11,14 @@ import com.tea.nemoto.musicalc.common.SoundType
 // 音声を再生するクラス(音声ファイルはres/rawに配置)
 // TODO：音声のロード時間が長いため、起動直後は音が再生されない場合がある
 object Sound {
+    val playStopButtonName = ObservableField<String>("Play")
+    val instName = ObservableField<String>(SoundType.Guitar.toString())
+
     private lateinit var soundPool: SoundPool
-    private var soundType: SoundType = SoundType.Bass
+    private var soundType: SoundType = SoundType.Guitar
+    private var streamId = 0
+    private var startedFlag = false
+    private var stoppingFlag = true
     var bass0 = 0
     var bass00 = 0
     var bass1 = 0
@@ -116,8 +123,34 @@ object Sound {
         soundPool.release()
     }
 
+    fun getSoundType(): SoundType{
+        return this.soundType
+    }
+
     fun setSoundType(type: SoundType){
         this.soundType = type
+        this.instName.set(type.toString())
+    }
+
+    fun playStopBeat(){
+        if(drumDot != 0) {
+            if (stoppingFlag) {
+                if (!startedFlag) {
+                    streamId = soundPool.play(drumDot, 0.6f, 0.6f, 0, -1, 0.6f)
+                    startedFlag = true
+                    stoppingFlag = false
+                    this.playStopButtonName.set("Stop")
+                } else {
+                    soundPool.resume(streamId)
+                    stoppingFlag = false
+                    this.playStopButtonName.set("Stop")
+                }
+            } else {
+                soundPool.pause(streamId)
+                stoppingFlag = true
+                this.playStopButtonName.set("Play")
+            }
+        }
     }
 
     fun playNumberOrDot(key: NumberDotType){

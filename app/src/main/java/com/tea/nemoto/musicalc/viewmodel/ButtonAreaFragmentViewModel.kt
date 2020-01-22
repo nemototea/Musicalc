@@ -1,12 +1,16 @@
 package com.tea.nemoto.musicalc.viewmodel
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.tea.nemoto.musicalc.R
 import com.tea.nemoto.musicalc.common.NumberDotType
 import com.tea.nemoto.musicalc.common.Operator
+import com.tea.nemoto.musicalc.common.SoundType
 import com.tea.nemoto.musicalc.model.Calculation
 import com.tea.nemoto.musicalc.model.Sound
+import kotlinx.android.synthetic.main.fragment_buttonarea.view.*
 
 public class ButtonAreaFragmentViewModel : ViewModel(){
     // 各ボタンタップ時の動作はModelで行う
@@ -48,7 +52,21 @@ public class ButtonAreaFragmentViewModel : ViewModel(){
         Sound.playEqual()
     }
 
-    fun recTapped(){
-        Calculation.inputRec()
+    fun playStopTapped() {
+        Sound.playStopBeat()
+    }
+
+    fun instTapped() {
+        when (Sound.getSoundType()) {
+            SoundType.Guitar -> {
+                Sound.setSoundType(SoundType.Bass)
+            }
+            SoundType.Bass -> {
+                Sound.setSoundType(SoundType.Piano)
+            }
+            SoundType.Piano -> {
+                Sound.setSoundType(SoundType.Guitar)
+            }
+        }
     }
 }
