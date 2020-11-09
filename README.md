@@ -1,2 +1,2 @@
 # Musicalc
-音楽電卓
+Calculator with play music.
